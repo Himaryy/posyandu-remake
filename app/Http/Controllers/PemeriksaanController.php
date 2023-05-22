@@ -41,16 +41,14 @@ class PemeriksaanController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $pemeriksaan = DB::table('balitas')
-        ->where('balitas.ibu_id', '=', $id)
-        ->get();
-        foreach ($pemeriksaan as $p) {
-            $cek = DB::table('penimbangans')
+        $pmk_balita = DB::table('balitas')
+        ->where('balitas.ibu_id', '=', $id)->get();
+        foreach($pmk_balita as $pmk)
+        {
+            $pnb_balita = DB::table('penimbangans')
             ->join('balitas', 'penimbangans.balita_id', '=', 'balitas.id')
-            ->where('penimbangans.balita_id', '=', $p->id)
-            ->get();
-            // print_r($cek);
-            return view ('lamanpemeriksaan.index',['title' => 'Pemeriksaan'], compact('cek','user'));
+            ->where('penimbangans.balita_id', '=', $pmk->id)->get();
+            return view('lamanpemeriksaan.index',['title' => 'Pemeriksaan'], compact('cek','user'));
         }
     }
 
