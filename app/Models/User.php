@@ -8,16 +8,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
+    protected $guarded  = ['id'];
     use HasApiTokens, HasFactory, Notifiable;
-    protected $guarded = ['id'];
 
     public function anak()
     {
         return $this->hasOne(balita::class);
     }
-
+    
     public function ibu()
     {
         return $this->belongsTo(Ibu::class);
